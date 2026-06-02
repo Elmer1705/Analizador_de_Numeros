@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>COMPONENTE PRÁCTICO_1</title>
+    <link rel="stylesheet" href="{% static 'analizador/css/estilos.css' %}">
+</head>
+<body>
+
+<div class="panel">
+    <h2>Analizador de Números</h2>
+    <p class="descripcion">Ingrese valores enteros separados por comas y presione calcular.</p>
+
+    <form method="POST" class="formulario-linea">
+        {% csrf_token %}
+        <input type="text" name="numeros" value="{{ entrada_usuario }}">
+        <button type="submit">Calcular</button>
+    </form>
+
+    {% if error %}
+        <div class="error-mensaje">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+    {% if resultados %}
+        <table class="tabla-resultados">
+            <tbody>
+                <tr>
+                    <th>Lista original:</th>
+                    <td class="valores-resaltados">{{ lista_original }}</td>
+                </tr>
+                <tr>
+                    <th>Suma total de números:</th>
+                    <td>{{ resultados.suma_total }}</td>
+                </tr>
+                <tr>
+                    <th>Promedio:</th>
+                    <td>{{ resultados.promedio }}</td>
+                </tr>
+                <tr>
+                    <th>Número mayor:</th>
+                    <td>{{ resultados.numero_mayor }}</td>
+                </tr>
+                <tr>
+                    <th>Número menor:</th>
+                    <td>{{ resultados.numero_menor }}</td>
+                </tr>
+                <tr>
+                    <th>Lista de números pares:</th>
+                    <td class="valores-resaltados">{{ resultados.pares }}</td>
+                </tr>
+                <tr>
+                    <th>Lista de números impares:</th>
+                    <td class="valores-resaltados">{{ resultados.impares }}</td>
+                </tr>
+                <tr>
+                    <th>Elevados al cuadrado:</th>
+                    <td class="valores-resaltados">{{ resultados.al_cuadrado }}</td>
+                </tr>
+                <tr>
+                    <th>Mayores al promedio (Filtro):</th>
+                    <td>{{ resultados.mayores_que_promedio }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+
+</body>
+</html>
